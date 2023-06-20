@@ -12,8 +12,8 @@
 #'   \item{Season}{The season in which the tree was recorded}
 #'   \item{Inspected}{A binary for whether or not the tree was inspected}
 #'   \item{Alive}{A binary for whether or not the tree is alive}
-#'   \item{Leaning}{XXX}
-#'   \item{TreeThere}{XXX}
+#'   \item{Leaning}{A binary for whether or not the tree is leaning}
+#'   \item{TreeThere}{A binary for whether or not there is a tree at the address}
 #'   \item{Flag}{XXX}
 #'   \item{Info}{XXX}
 #'   \item{Longitude}{Longitude information}
