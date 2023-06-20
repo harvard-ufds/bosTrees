@@ -14,23 +14,75 @@ bosTrees$Species<- dplyr::recode_factor(
                                         "RED MAPLE" = "ACER RUBRUM",
                                         "ACER GINNALA FLAME" = "ACER GINNALA 'FLAME'",
                                         "PRUNUS VIRGINIANA CANADA RED" = "PRUNUS VIRGINIANA 'CANADA RED'",
-                                        "GLEDITSIA TRI. INERMIS SKYLINE" = "GLEDITSIA TRI. INERMIS 'SKYLINE'",
+                                        "GLEDITSIA TRI. INERMIS SKYLINE" = "GLEDITSIA TRIACANTHOS 'INERMIS'",
                                         "ACER RUBRUM OCT. GLORY" = "ACER RUBRUM 'OCT. GLORY'",
                                         "ACER RUBRUM RED SUNSET" = "ACER RUBRUM 'RED SUNSET'",
                                         "MALUS GOLDEN RAINDROPS" = "MALUS 'GOLDEN RAINDROPS'",
                                         "ACER RUBRUM SUN VALLEY" = "ACER RUBRUM 'SUN VALLEY'",
-                                        "MALUS SUGARTYME" = "MALUS 'SUGARTYME'"
+                                        "MALUS SUGARTYME" = "MALUS 'SUGARTYME'",
+                                        "LIQUIDAMBAR STYR. 'HAPPI DAZE'" = "LIQUIDAMBAR STYRACIFLUA 'HAPPI DAZE'",
+                                        "PRUNUS SUB AUTUMNALIS" = "PRUNUS SUBHIRTELLA 'AUTUMNALIS'",
+                                        "PRUNUS SUB. AUTUMNALIS" = "PRUNUS SUBHIRTELLA 'AUTUMNALIS'",
+                                        "QUERCUS MACRO" = "QUERCUS MACROCARPA",
+                                        "LIQUIDAMBAR STYR" = "LIQUIDAMBAR STYRACIFLUA",
+                                        "GLEDITSIA TRI. INERMIS" = "GLEDITSIA TRIACANTHOS 'INERMIS'",
+                                        "GLEDITSIA TRI. INERMIS HALKA" = "GLEDITSIA TRIACANTHOS 'INERMIS'",
+                                        "GLEDITSIA TRI. INERMIS 'SHADEMASTER'" = "GLEDITSIA TRIACANTHOS 'INERMIS'",
+                                        "PLATANUS X ACERIFOLLIA 'EXCLAMATION'" = "PLATANUS x ACERIFOLIA 'EXCLAMATION'"
 )
 
 #separate name into cultivar, species, genus
-bosTrees<-tidyr::separate(bosTrees, Species, c("A", "B"), sep = "'", remove = TRUE)|>
+bosTrees<-tidyr::separate(bosTrees, Species, c("A", "B"), sep = " '", remove = TRUE)|>
   dplyr::rename(Cultivar = B, Else = A)
-bosTrees<-tidyr::separate(bosTrees, Else, c("A", "B"), sep = " ", remove = TRUE, extra = "merge")|>
+bosTrees<-tidyr::separate(bosTrees, Else, c("A", "B"), sep = " ", remove = FALSE, extra = "merge")|>
   dplyr::rename(Genus = A, Species = B)
 
 #remove all caps
 bosTrees$Genus<-stringr::str_to_title(bosTrees$Genus)
 bosTrees$Species<-stringr::str_to_title(bosTrees$Species)
 bosTrees$Cultivar<-stringr::str_to_title(bosTrees$Cultivar)
+bosTrees$Else<-stringr::str_to_sentence(bosTrees$Else)
+
+#import Cambridge trees for Common Names
+crossover <- readr::read_csv("https://data.cambridgema.gov/api/views/82zb-7qc9/rows.csv?accessType=DOWNLOAD")
+crossover<- crossover|>
+  dplyr::select(Scientific, CommonName)|>
+  dplyr::count(Scientific, CommonName)|>
+  dplyr::group_by(Scientific)|>
+  dplyr::slice_max(n, n=1)|>
+  dplyr::select(Scientific, CommonName)
+
+#rename some to match
+crossover$Scientific<-dplyr::recode_factor(crossover$Scientific,
+                                           "Ulmus carpiniforlia" = "Ulmus carpinifolia",
+                                           "Ulmus sp" = "Ulmus",
+                                           "Prunus × yedoensis" = "Prunus x yedoensis",
+                                           "Prunus sp" = "Prunus",
+                                           "Malus sp" = "Malus",
+                                           "Platanus acerifolia" = "Platanus x acerifolia"
+                                          )
+
+#join and find non-matches for names, there are some that don't have any info
+bosTrees<- dplyr::left_join(bosTrees, crossover, by = c("Else" = "Scientific"))
+bosTrees|>dplyr::mutate(CommonName =
+                   as.character(dplyr::case_when(
+                     Else %in% "Acer truncatum" ~ "Shangtung Maple",
+                     Else %in% "Amelanchier laevis" ~ "Allegheny Serviceberry",
+                     Else %in% "Amelanchier x cumulus" ~ "Cumulus Serviceberry",
+                     Else %in% "Liriodendron" ~ "Tulip Tree",
+                     Else %in% "Malus x zumi" ~ "Crabapple",
+                     Else %in% "Only one tree planted" ~ NA_character_,
+                     Else %in% "Prunus rosaceae" ~ "Taiwan Cherry",
+                     Else %in% "Quercus acutissima" ~ "Sawtooth Oak",
+                     Else %in% "Quercus x" ~ "Regal Prince Oak",
+                     Else %in% "Ulmus wilsoniana" ~ "Prospector Oak",
+                     TRUE ~ as.character(CommonName)
+                   ))
+)
+#clean names, drop Column with species and genus info
+bosTrees$CommonName<-stringr::str_to_title(bosTrees$CommonName)
+bosTrees <- subset(bosTrees, select = -Else)
+
+#thorsayssorry
 
 usethis::use_data(bosTrees, overwrite = TRUE)
