@@ -17,5 +17,15 @@ camTrees <- camTrees %>%
 camTrees <- camTrees |>
   dplyr::select(-TreeWellId, -TreeGrate, -Cartegraph, -Cartegra1, -Creator, -Inspectr, -PlantingCo, -WateringRe, -LocationRe, -SiteReplan, -SiteRetire, -BiocharAd, -Pb, -StTreePrun, -OffStTreeP)
 
+# Capitalize the first letter of each word in the specified columns
+camTrees <- camTrees |>
+  dplyr::mutate(
+    Species = stringr::str_to_title(Species),
+    SpeciesShort = stringr::str_to_title(SpeciesShort),
+    Genus = stringr::str_to_title(Genus),
+    Scientific = stringr::str_to_title(Scientific),
+    Order = stringr::str_to_title(Order),
+    CommonName = stringr::str_to_title(CommonName)
+  )
 
 usethis::use_data(camTrees, overwrite = TRUE)
