@@ -5,11 +5,43 @@
 \alias{camTrees}
 \title{Street trees in Cambridge, MA}
 \format{
-A tibble with XXX rows and XXX variables:
+A tibble with 38050 rows and 35 variables:
 \describe{
-\item{XXX}{XXX}
-\item{XXX}{XXX}
-
+\item{Longitude}{Longitude information}
+\item{Latitude}{Latitude information}
+\item{TreeId}{Unique identifier for the record}
+\item{Trunks}{Number of tree trunks}
+\item{SiteType}{Designates whether the site is currently occupied by a tree (Tree) or stump (Stump), is an empty planting site (Planting Site), or has been paved over or is otherwise empty and no longer available for planting (Retired)}
+\item{PlantDate}{Date that a tree was last planted at this site}
+\item{RemovalDate}{Date that a tree was last removed from this site}
+\item{Species}{Common name of the species of the current tree}
+\item{SpeciesShort}{Genus of the current tree species (see Species)}
+\item{OverheadWires}{Designates the presence of above-ground utility wires in the area of tree canopy growth at the site}
+\item{Cultivar}{Cultivated variety of the current tree species (see Species)}
+\item{StreetNumber}{Number of the street address closest to the site}
+\item{StreetName}{Name of the street for the address closest to the site}
+\item{MemorialTree}{Binary variable for whether the current tree was planted in memoriam}
+\item{Location}{Designates whether the site is located along a street (Street Tree), beyond the back edge of a sidewalk in a front yard or other area not immediately adjacent to a street (Back of Sidewalk), in a park or other open space (Park Tree, Cemetery Tree, Golf Course), or on the grounds of a public school or other municipal building (Public School, City Building)}
+\item{Ownership}{Designates the ownership of the tax parcel on which the site falls.}
+\item{AdaCompliant}{Designates whether the site is ADA compliant, for instance whether the site has the minimum required sidewalk width of 4 feet}
+\item{BareRoot}{Designates whether the last tree was planted as a bare-root tree}
+\item{Diameter}{Tree diameter in inches taken at approximately 4.5 feet above ground (DBH)}
+\item{TreeWellCo}{The type of cover, if any, that is over the tree well, either Tree Grate or Flexi-Pave.}
+\item{StructuralSoil}{Binary variable for whether the tree was planted in structural soil.}
+\item{AbutsOpenSpace}{Indicates if the tree abuts an open space or if the tree well is the only open area around the tree}
+\item{ExposedRoots}{Indicates if the root flare of the tree is visible}
+\item{CommonName}{Common name of the tree}
+\item{Genus}{Name of the genus (group of tree species sharing fundamental characteristics) that the tree belongs to}
+\item{Scientific}{Scientific name of the tree}
+\item{Order}{Order of the tree}
+\item{Notes}{Miscellaneous notes about the tree}
+\item{SolarRating}{Solar radiation rating between 1 and 5, where 1 is the lowest score and 5 is the highest (receives the most light). Pictometry 2014 DSM and DEM were used to determine tree height and measure shadows from 2014 3D buildings. SolarRating is the average of the solar radiation for both the DSM and DEM results for June, July, August, and September}
+\item{TreeWellLe}{The length of the tree well}
+\item{TreeWellWi}{The width of the tree well}
+\item{TreeWellDe}{The depth of the tree well}
+\item{ScheduledR}{A binary for whether there is a scheduled removal for the tree}
+\item{RemovalRea}{The reason for removing the tree, if any}
+\item{PlantingSe}{The planting season of the tree}
 }
 }
 \source{
