@@ -2,7 +2,7 @@
 #'
 #' Includes data for street trees in Boston. Provided by Boston's GIS department.
 #'
-#' @format A tibble with 6836 rows and 25 variables:
+#' @format A tibble with 6836 rows and 12 variables:
 #' \describe{
 #'   \item{FID}{unique identifier for each tree}
 #'   \item{Species}{a character denoting species}
