@@ -83,6 +83,28 @@ bosTrees|>dplyr::mutate(CommonName =
 bosTrees$CommonName<-stringr::str_to_title(bosTrees$CommonName)
 bosTrees <- subset(bosTrees, select = -Else)
 
-#thorsayssorry
+# Filter out unnecessary columns
+bosTrees <- bosTrees |>
+  dplyr::select(-A, -Flag, -GlobalID, -CreationDa, -Creator, -EditDate, -Editor, -GlobalID_2, -CreationDate, -Creator_1, -EditDate_1, -Editor_1)
+
+# Merge categories of the same kind
+bosTrees <- bosTrees |>
+  dplyr::mutate(Leaning =
+                  dplyr::case_when(Leaning == 'No' ~ "N",
+                                   TRUE ~ as.character(Leaning)),
+                TreeThere =
+                  dplyr::case_when(TreeThere == 'Yes' ~ 'Y',
+                                   TRUE ~ as.character(TreeThere)))
+
+# Merge `Notes` and `Info` columns with a semicolon
+bosTrees$Notes <- paste(bosTrees$Info, bosTrees$Notes, sep = "; ")
+
+# Remove "NA;" and ";NA" occurrences
+bosTrees$Notes <- gsub("NA;", "", bosTrees$Notes)
+bosTrees$Notes <- gsub(";NA", "", bosTrees$Notes)
+
+# Drop the original "Info" column if needed
+bosTrees$Info <- NULL
+
 
 usethis::use_data(bosTrees, overwrite = TRUE)
