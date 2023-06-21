@@ -13,4 +13,9 @@ camTrees <- camTrees %>%
   mutate(Longitude = parse_number(Longitude),
          Latitude = parse_number(Latitude))
 
+# Filter out unnecessary columns
+camTrees <- camTrees |>
+  dplyr::select(-TreeWellId, -TreeGrate, -Cartegraph, -Cartegra1, -Creator, -Inspectr, -PlantingCo, -WateringRe, -LocationRe, -SiteReplan, -SiteRetire, -BiocharAd, -Pb, -StTreePrun, -OffStTreeP)
+
+
 usethis::use_data(camTrees, overwrite = TRUE)
