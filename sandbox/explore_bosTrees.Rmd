@@ -1,0 +1,32 @@
+---
+title: "Exploring bosTrees"
+author: "Lal Kablan"
+date: "July 18, 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Checking Class
+```{r}
+class(bosTrees$FID) #numeric
+class(bosTrees$Else) #character (question: what is else?)
+class(bosTrees$Genus) #character
+class(bosTrees$Species) #character
+class(bosTrees$Cultivar) #character
+class(bosTrees$Address) #character
+class(bosTrees$Notes) #character
+class(bosTrees$Season) #character
+class(bosTrees$Inspected) #character (should this be factor variable?)
+class(bosTrees$Alive) #character
+class(bosTrees$Leaning) #character
+class(bosTrees$TreeThere) #character
+class(bosTrees$Flag) #character
+class(bosTrees$Info) #character
+class(bosTrees$Latitude) #numeric
+class(bosTrees$Longitude) #numeric
+class(bosTrees$Watered) #character
+```
+
