@@ -106,5 +106,4 @@ bosTrees$Notes <- gsub(";NA", "", bosTrees$Notes)
 # Drop the original "Info" column if needed
 bosTrees$Info <- NULL
 
-
 usethis::use_data(bosTrees, overwrite = TRUE)
