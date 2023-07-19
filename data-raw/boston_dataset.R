@@ -62,6 +62,7 @@ crossover$Scientific<-dplyr::recode_factor(crossover$Scientific,
                                            "Platanus acerifolia" = "Platanus x acerifolia"
                                           )
 
+
 #join and find non-matches for names, there are some that don't have any info
 bosTrees<- dplyr::left_join(bosTrees, crossover, by = c("Else" = "Scientific"))
 bosTrees|>dplyr::mutate(CommonName =
@@ -85,7 +86,8 @@ bosTrees <- subset(bosTrees, select = -Else)
 
 # Filter out unnecessary columns
 bosTrees <- bosTrees |>
-  dplyr::select(-A, -Flag, -GlobalID, -CreationDa, -Creator, -EditDate, -Editor, -GlobalID_2, -CreationDate, -Creator_1, -EditDate_1, -Editor_1)
+  dplyr::select( -Flag, -GlobalID, -CreationDa, -Creator, -EditDate, -Editor, -GlobalID_2, -CreationDate, -Creator_1, -EditDate_1, -Editor_1, -Cultivar, -Species, -Genus) |>
+  dplyr::rename(ScientificName = Else)
 
 # Merge categories of the same kind
 bosTrees <- bosTrees |>
@@ -107,3 +109,4 @@ bosTrees$Notes <- gsub(";NA", "", bosTrees$Notes)
 bosTrees$Info <- NULL
 
 usethis::use_data(bosTrees, overwrite = TRUE)
+

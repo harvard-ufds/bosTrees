@@ -30,3 +30,32 @@ class(bosTrees$Longitude) #numeric
 class(bosTrees$Watered) #character
 ```
 
+Categorical Variables
+```{r}
+unique(bosTrees$Else) #53 different 'else'?
+
+unique(bosTrees$Genus) 
+sum(is.na(bosTrees$Genus)) #25 different genus (+ 907 NAs)
+
+unique(bosTrees$Species)
+sum(is.na(bosTrees$Species)) #49 different species (+ 1432 NAs)
+
+unique(bosTrees$Cultivar) 
+sum(is.na(bosTrees$Cultivar)) #57 different genus (+ 2813 NAs)
+
+unique(bosTrees$Address) #many many different addresses - makes sense!
+sum(is.na(bosTrees$Address))
+
+unique(bosTrees$Notes) #makes sense
+unique(bosTrees$Season) #makes sense; correct formatting
+unique(bosTrees$Inspected) #only Yes and No - makes sense
+
+unique(bosTrees$Alive) 
+sum(is.na(bosTrees$Alive)) #makes sense but 4485 NAs
+
+unique(bosTrees$Leaning) #No, N and Y (but I thought I fixed this during wrangling - look into it?)
+unique(bosTrees$TreeThere) #same issue
+unique(bosTrees$Info) #character
+unique(bosTrees$Watered) #No and Yes only; makes sense
+```
+
