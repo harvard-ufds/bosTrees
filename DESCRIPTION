@@ -2,9 +2,10 @@ Package: bosTrees
 Title: Datasets on Trees in Boston and Cambridge, MA
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Kelly", "McConville", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: bosTrees is a package containing cleaned datasets 
+on trees in Boston and Cambridge, Massachusetts.
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
