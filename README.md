@@ -37,21 +37,16 @@ devtools::install_github("harvard-ufds/bosTrees")
 
 This is a basic example which shows you how to solve a common problem:
 
-    #> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf0094270483b'
-    #> (as 'lib' is unspecified)
-    #> Downloading GitHub repo harvard-ufds/bosTrees@HEAD
-    #> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf0094270483b'
-    #> (as 'lib' is unspecified)
-    #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    #> ✔ dplyr     1.1.2     ✔ readr     2.1.4
-    #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-    #> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-    #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-    #> ✔ purrr     1.0.1     
-    #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    #> ✖ dplyr::filter() masks stats::filter()
-    #> ✖ dplyr::lag()    masks stats::lag()
-    #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+    #> 
+    #> The downloaded binary packages are in
+    #>  /var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T//RtmpI6hwC1/downloaded_packages
+    #> ── R CMD build ─────────────────────────────────────────────────────────────────
+    #> * checking for file ‘/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpI6hwC1/remotesf7556af06579/harvard-ufds-bosTrees-8e6b5e5/DESCRIPTION’ ... OK
+    #> * preparing ‘bosTrees’:
+    #> * checking DESCRIPTION meta-information ... OK
+    #> * checking for LF line-endings in source and make files and shell scripts
+    #> * checking for empty or unneeded directories
+    #> * building ‘bosTrees_0.0.0.9000.tar.gz’
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
