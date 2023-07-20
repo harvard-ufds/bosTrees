@@ -42,8 +42,20 @@ devtools::install_github("harvard-ufds/bosTrees")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
+install.packages("devtools")
+devtools::install_github("harvard-ufds/bosTrees")
 library(bosTrees)
 ## basic example code
+
+exampleplot<-camTrees %>%
+  filter(Longitude > -71.13, Longitude < -71.11, Latitude > 42.359, Latitude < 42.375) %>%
+ggplot(aes(x = Longitude, y = Latitude, color = Ownership)) +
+  geom_point() +
+  xlim(-71.13, -71.11) +
+  ylim(42.359, 42.375) +
+  labs(title = "Ownership of Trees alongside Charles River on Harvard's Campus")
+
+exampleplot
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
