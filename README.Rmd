@@ -41,7 +41,7 @@ devtools::install_github("harvard-ufds/bosTrees")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example, echo = FALSE}
+```{r example, echo = FALSE, results = "hide"}
 install.packages("devtools")
 devtools::install_github("harvard-ufds/bosTrees")
 library(bosTrees)

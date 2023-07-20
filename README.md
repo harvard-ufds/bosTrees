@@ -37,20 +37,10 @@ devtools::install_github("harvard-ufds/bosTrees")
 
 This is a basic example which shows you how to solve a common problem:
 
-    #> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf0094767d674'
+    #> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf0094270483b'
     #> (as 'lib' is unspecified)
-    #> 
-    #> The downloaded binary packages are in
-    #>  /var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T//RtmpqXU9KZ/downloaded_packages
     #> Downloading GitHub repo harvard-ufds/bosTrees@HEAD
-    #> ── R CMD build ─────────────────────────────────────────────────────────────────
-    #> * checking for file ‘/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpqXU9KZ/remotesf542532904a6/harvard-ufds-bosTrees-1bd0926/DESCRIPTION’ ... OK
-    #> * preparing ‘bosTrees’:
-    #> * checking DESCRIPTION meta-information ... OK
-    #> * checking for LF line-endings in source and make files and shell scripts
-    #> * checking for empty or unneeded directories
-    #> * building ‘bosTrees_0.0.0.9000.tar.gz’
-    #> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf0094767d674'
+    #> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf0094270483b'
     #> (as 'lib' is unspecified)
     #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     #> ✔ dplyr     1.1.2     ✔ readr     2.1.4
