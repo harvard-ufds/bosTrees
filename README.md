@@ -33,15 +33,15 @@ dataset was created by the City of Boston’s GIS Team.
 devtools::install_github("harvard-ufds/bosTrees")
 ```
 
-## Example \[to be edited\]
+## Examples
 
 This is a basic example which shows you how to solve a common problem:
 
     #> 
     #> The downloaded binary packages are in
-    #>  /var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T//RtmpVITNCo/downloaded_packages
+    #>  /var/folders/yv/81c94rx95gdd713rrm8n1l080000gn/T//Rtmp095EKR/downloaded_packages
     #> ── R CMD build ─────────────────────────────────────────────────────────────────
-    #> * checking for file ‘/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpVITNCo/remotesfb28568a6f69/harvard-ufds-bosTrees-117a3aa/DESCRIPTION’ ... OK
+    #> * checking for file ‘/private/var/folders/yv/81c94rx95gdd713rrm8n1l080000gn/T/Rtmp095EKR/remotesb1a3e390de7/harvard-ufds-bosTrees-9fd75f5/DESCRIPTION’ ... OK
     #> * preparing ‘bosTrees’:
     #> * checking DESCRIPTION meta-information ... OK
     #> * checking for LF line-endings in source and make files and shell scripts
@@ -50,29 +50,57 @@ This is a basic example which shows you how to solve a common problem:
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+Trees are fun to visualize! Here is a simple bargraph of the 5 most
+common trees in Boston, MA:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+# Find the names of the 5 most common species
+top5 <- bosTrees %>%
+  count(CommonName) %>%
+  arrange(desc(n)) %>%
+  drop_na(CommonName) %>%
+  slice_max(n = 5, n)
+
+# Filter down to 5 common species
+most_common <- bosTrees %>%
+  filter(CommonName %in% top5$CommonName)
+
+# Create a bargraph of the 5 top species
+ggplot(most_common, aes(x = fct_infreq(CommonName), fill = factor(CommonName))) +
+  geom_bar() +
+  theme(axis.title.x = element_blank(),
+        axis.text.x =
+          element_text(angle = 30,
+                       vjust = 1,
+                       hjust=1),
+        legend.position = "none") +
+  labs(title = "5 Most Common Trees in Boston",
+       y = "Number of Trees") +
+  scale_fill_manual(values = c("#2ca25f", "#31572c", "#90a955", "#66c2a4", "#006d2c"))
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
-You can also embed plots, for example:
+You can even plot the latitudes and longitudes of the common trees to
+see them in a map view:
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+``` r
+ggplot(most_common, aes(x = Longitude, y = Latitude, color = CommonName)) +
+  geom_point(alpha = 0.3) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "bottom")
+```
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+## References
+
+**Data originally published in:**
+
+- **`bosTrees`** dataset:
+  <https://data.boston.gov/dataset/primary-street-trees-public>
+
+- **`camTrees`** dataset:
+  <https://www.cambridgema.gov/GIS/gisdatadictionary/Environmental/ENVIRONMENTAL_StreetTrees>
