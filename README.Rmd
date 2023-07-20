@@ -41,7 +41,7 @@ devtools::install_github("harvard-ufds/bosTrees")
 
 Trees are fun to visualize! Here is a simple bar graph of the 5 most common trees in Boston, MA:
 
-```{r}
+```{r example, warning=FALSE, message=FALSE}
 library(bosTrees)
 library(tidyverse)
 

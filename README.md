@@ -41,16 +41,6 @@ common trees in Boston, MA:
 ``` r
 library(bosTrees)
 library(tidyverse)
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.2     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.1     
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 # Find the names of the 5 most common species
 top5 <- bosTrees %>%
@@ -77,7 +67,7 @@ ggplot(most_common, aes(x = fct_infreq(CommonName), fill = factor(CommonName))) 
   scale_fill_manual(values = c("#2ca25f", "#31572c", "#90a955", "#66c2a4", "#006d2c"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" width="100%" />
 
 You can even plot the latitudes and longitudes of the common trees to
 see them in a map view:
@@ -91,7 +81,7 @@ ggplot(most_common, aes(x = Longitude, y = Latitude, color = CommonName)) +
         legend.position = "bottom")
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 You can also use the `camTrees` dataset to take a closer look at the
 trees in Cambridge, MA specifically:
@@ -107,7 +97,7 @@ ggplot(aes(x = Longitude, y = Latitude, color = Ownership)) +
   labs(title = "Ownership of Trees alongside Charles River on Harvard's Campus")
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ## References
 
