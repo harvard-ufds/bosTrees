@@ -12,14 +12,14 @@ knitr::opts_chunk$set(echo = TRUE)
 Checking Class
 ```{r}
 class(bosTrees$FID) #numeric
-class(bosTrees$Else) #character (question: what is else?)
+class(bosTrees$Else) #character
 class(bosTrees$Genus) #character
 class(bosTrees$Species) #character
 class(bosTrees$Cultivar) #character
 class(bosTrees$Address) #character
 class(bosTrees$Notes) #character
 class(bosTrees$Season) #character
-class(bosTrees$Inspected) #character (should this be factor variable?)
+class(bosTrees$Inspected) #character
 class(bosTrees$Alive) #character
 class(bosTrees$Leaning) #character
 class(bosTrees$TreeThere) #character
@@ -41,7 +41,7 @@ unique(bosTrees$Species)
 sum(is.na(bosTrees$Species)) #49 different species (+ 1432 NAs)
 
 unique(bosTrees$Cultivar) 
-sum(is.na(bosTrees$Cultivar)) #57 different genus (+ 2813 NAs)
+sum(is.na(bosTrees$Cultivar)) #57 different cultivar (+ 2813 NAs)
 
 unique(bosTrees$Address) #many many different addresses - makes sense!
 sum(is.na(bosTrees$Address))
@@ -53,9 +53,87 @@ unique(bosTrees$Inspected) #only Yes and No - makes sense
 unique(bosTrees$Alive) 
 sum(is.na(bosTrees$Alive)) #makes sense but 4485 NAs
 
-unique(bosTrees$Leaning) #No, N and Y (but I thought I fixed this during wrangling - look into it?)
-unique(bosTrees$TreeThere) #same issue
+unique(bosTrees$Leaning) #makes sense
+unique(bosTrees$TreeThere) #makes sense
 unique(bosTrees$Info) #character
 unique(bosTrees$Watered) #No and Yes only; makes sense
+```
+
+Explorations
+```{r}
+library(tidyverse)
+
+# Find the names of the 5 most common species
+top5 <- bosTrees %>%
+  count(CommonName) %>%
+  arrange(desc(n)) %>%
+  drop_na(CommonName) %>%
+  slice_max(n = 5, n)
+
+# Filter down to 5 common species
+most_common <- bosTrees %>%
+  filter(CommonName %in% top5$CommonName)
+
+# Scatterplot of latitude vs. longitude and color by Alive
+ggplot(most_common, aes(x = Longitude, y = Latitude, color = CommonName)) +
+  geom_point(alpha = 0.3) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "bottom")
+
+# Scatterplot of latitude vs. longitude and color by Alive and facet by Season
+# Idea: might be interesting to plot this as it shows that people who collected this data did not fill in Alive information during Fall'15-18 and Spring'16-19, so probably this is a 'new' practice
+ggplot(most_common, aes(x = Longitude, y = Latitude, color = Alive)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~Season, ncol = 2)
+
+# Barplot of 5 most common species (count - without filtering anything)
+# I added some theme and coloring in case we want to teach that as well
+ggplot(most_common, aes(x = fct_infreq(CommonName), fill = factor(CommonName))) +
+  geom_bar() +
+  theme(axis.title.x = element_blank(),
+        axis.text.x =
+          element_text(angle = 30,
+                       vjust = 1,
+                       hjust=1),
+        legend.position = "none") +
+  labs(title = "5 Most Common Trees in Boston",
+       y = "Number of Trees") +
+  scale_fill_manual(values = c("#2ca25f", "#31572c", "#90a955", "#66c2a4", "#006d2c"))
+
+# Filter out rows where Alive is NA
+most_common2 <- most_common %>%
+  filter(Alive %in% c("Y", "N"))
+
+# Barplot of 5 most common species divided into Alive and not Alive
+ggplot(most_common2, aes(x = fct_infreq(CommonName), fill = Alive)) +
+  geom_bar(position = "dodge") +
+  theme(legend.pos = "bottom")
+
+# Find the names of the 5 most common species around Biostats Department
+top5_biostats <- bosTrees %>%
+  filter(Longitude > -71.11, Longitude < -71.09, Latitude > 42.33, Latitude < 42.34) %>%
+  drop_na(CommonName) %>%
+  count(CommonName) %>%
+  arrange(desc(n)) %>%
+  slice_max(n = 5, n)
+
+# Filter down to 5 common species around the Biostats dept (6 since 4-6 is a tie)
+common_biostats <- bosTrees %>%
+  filter(CommonName %in% top5_biostats$CommonName) %>%
+  filter(Longitude > -71.11, Longitude < -71.09, Latitude > 42.33, Latitude < 42.34)
+
+# The coordinates of the Biostats Dept: (42.33583368443492, -71.10193132895387)
+ggplot(common_biostats, aes(x = Longitude, y = Latitude, color = CommonName)) +
+  geom_point(alpha = 0.4) +
+  xlim(-71.09, -71.11) +
+  ylim(42.33, 42.34) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "bottom")
+
+
 ```
 
