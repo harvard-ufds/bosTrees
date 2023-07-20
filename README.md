@@ -35,25 +35,23 @@ devtools::install_github("harvard-ufds/bosTrees")
 
 ## Examples
 
-This is a basic example which shows you how to solve a common problem:
-
-    #> 
-    #> The downloaded binary packages are in
-    #>  /var/folders/yv/81c94rx95gdd713rrm8n1l080000gn/T//Rtmp095EKR/downloaded_packages
-    #> ── R CMD build ─────────────────────────────────────────────────────────────────
-    #> * checking for file ‘/private/var/folders/yv/81c94rx95gdd713rrm8n1l080000gn/T/Rtmp095EKR/remotesb1a3e390de7/harvard-ufds-bosTrees-9fd75f5/DESCRIPTION’ ... OK
-    #> * preparing ‘bosTrees’:
-    #> * checking DESCRIPTION meta-information ... OK
-    #> * checking for LF line-endings in source and make files and shell scripts
-    #> * checking for empty or unneeded directories
-    #> * building ‘bosTrees_0.0.0.9000.tar.gz’
-
-<img src="man/figures/README-example-1.png" width="100%" />
-
-Trees are fun to visualize! Here is a simple bargraph of the 5 most
+Trees are fun to visualize! Here is a simple bar graph of the 5 most
 common trees in Boston, MA:
 
 ``` r
+library(bosTrees)
+library(tidyverse)
+#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.2     ✔ readr     2.1.4
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+#> ✔ purrr     1.0.1     
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
 # Find the names of the 5 most common species
 top5 <- bosTrees %>%
   count(CommonName) %>%
@@ -65,7 +63,7 @@ top5 <- bosTrees %>%
 most_common <- bosTrees %>%
   filter(CommonName %in% top5$CommonName)
 
-# Create a bargraph of the 5 top species
+# Create a bar graph of the 5 top species
 ggplot(most_common, aes(x = fct_infreq(CommonName), fill = factor(CommonName))) +
   geom_bar() +
   theme(axis.title.x = element_blank(),
@@ -94,6 +92,22 @@ ggplot(most_common, aes(x = Longitude, y = Latitude, color = CommonName)) +
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+You can also use the `camTrees` dataset to take a closer look at the
+trees in Cambridge, MA specifically:
+
+``` r
+# Filter down to the area of Charles River around Harvard's campus and create a scatterplot
+camTrees %>%
+  filter(Longitude > -71.13, Longitude < -71.11, Latitude > 42.359, Latitude < 42.375) %>%
+ggplot(aes(x = Longitude, y = Latitude, color = Ownership)) +
+  geom_point() +
+  xlim(-71.13, -71.11) +
+  ylim(42.359, 42.375) +
+  labs(title = "Ownership of Trees alongside Charles River on Harvard's Campus")
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ## References
 
