@@ -45,6 +45,7 @@ This is a basic example which shows you how to solve a common problem:
 install.packages("devtools")
 devtools::install_github("harvard-ufds/bosTrees")
 library(bosTrees)
+library(tidyverse)
 ## basic example code
 
 exampleplot<-camTrees %>%

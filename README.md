@@ -38,9 +38,49 @@ devtools::install_github("harvard-ufds/bosTrees")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
+install.packages("devtools")
+#> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf00917803483'
+#> (as 'lib' is unspecified)
+#> 
+#> The downloaded binary packages are in
+#>  /var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T//RtmpoJzpwv/downloaded_packages
+devtools::install_github("harvard-ufds/bosTrees")
+#> Downloading GitHub repo harvard-ufds/bosTrees@HEAD
+#> ── R CMD build ─────────────────────────────────────────────────────────────────
+#> * checking for file ‘/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpoJzpwv/remotesf4339998b4d/harvard-ufds-bosTrees-b96f783/DESCRIPTION’ ... OK
+#> * preparing ‘bosTrees’:
+#> * checking DESCRIPTION meta-information ... OK
+#> * checking for LF line-endings in source and make files and shell scripts
+#> * checking for empty or unneeded directories
+#> * building ‘bosTrees_0.0.0.9000.tar.gz’
+#> Installing package into '/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpZhzTnQ/temp_libpathf00917803483'
+#> (as 'lib' is unspecified)
 library(bosTrees)
+library(tidyverse)
+#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.2     ✔ readr     2.1.4
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
+#> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+#> ✔ purrr     1.0.1
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 ## basic example code
+
+exampleplot<-camTrees %>%
+  filter(Longitude > -71.13, Longitude < -71.11, Latitude > 42.359, Latitude < 42.375) %>%
+ggplot(aes(x = Longitude, y = Latitude, color = Ownership)) +
+  geom_point() +
+  xlim(-71.13, -71.11) +
+  ylim(42.359, 42.375) +
+  labs(title = "Ownership of Trees alongside Charles River on Harvard's Campus")
+
+exampleplot
 ```
+
+<img src="man/figures/README-example-1.png" width="100%" />
 
 What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
