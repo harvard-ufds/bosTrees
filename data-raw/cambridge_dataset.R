@@ -5,13 +5,13 @@ camTrees <- readr::read_csv("https://data.cambridgema.gov/api/views/82zb-7qc9/ro
 # Wrangling
 # Clean up names
 # Split on location info
-camTrees <- camTrees %>%
-  janitor::clean_names(case = "upper_camel") %>%
-  mutate(Geometry = str_replace(Geometry, "POINT \\(", "")) %>%
+camTrees <- camTrees |>
+  janitor::clean_names(case = "upper_camel") |>
+  dplyr::mutate(Geometry = stringr::str_replace(Geometry, "POINT \\(", "")) |>
   tidyr::separate(col = Geometry, into = c("Longitude", "Latitude"),
-                  sep = " ") %>%
-  mutate(Longitude = parse_number(Longitude),
-         Latitude = parse_number(Latitude))
+                  sep = " ") |>
+  dplyr::mutate(Longitude = readr::parse_number(Longitude),
+         Latitude = readr::parse_number(Latitude))
 
 # Filter out unnecessary columns
 camTrees <- camTrees |>
@@ -27,5 +27,11 @@ camTrees <- camTrees |>
     Order = stringr::str_to_title(Order),
     CommonName = stringr::str_to_title(CommonName)
   )
+
+#change plant date to year, get rid of species,cultivar
+camTrees$PlantYear <- stringr::str_sub(camTrees$PlantDate, start = 7, end = 10)
+camTrees$RemovalYear <- stringr::str_sub(camTrees$RemovalDate, start = 7, end = 10)
+camTrees <- camTrees |>
+  dplyr::select(-PlantDate, -RemovalDate, -Species, -Cultivar)
 
 usethis::use_data(camTrees, overwrite = TRUE)

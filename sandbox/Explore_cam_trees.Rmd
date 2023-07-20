@@ -1,0 +1,88 @@
+---
+title: "Exploring camTrees"
+author: "Thor Reimann"
+date: "July 20, 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Check class
+```{r}
+class(camTrees$Longitude) #numeric
+class(camTrees$Latitude) #numeric
+class(camTrees$TreeId) #numeric
+class(camTrees$Trunks) #numeric
+class(camTrees$SiteType) #character
+class(camTrees$SpeciesShort) #character
+class(camTrees$OverheadWires) #numeric
+class(camTrees$StreetNumber) #numeric
+class(camTrees$StreetName) #character
+class(camTrees$MemorialTree) #character
+class(camTrees$Location) #character
+class(camTrees$Ownership) #character
+class(camTrees$AdaCompliant) #character
+class(camTrees$BareRoot) #character
+class(camTrees$Diameter) #numeric
+class(camTrees$TreeWellCo) #character
+class(camTrees$StructuralSoil) #character
+class(camTrees$AbutsOpenSpace) #character
+class(camTrees$ExposedRoots) #character 
+class(camTrees$CommonName) #character
+class(camTrees$Genus) #character
+class(camTrees$Scientific) #character
+class(camTrees$Order) #character
+class(camTrees$Notes) #character
+class(camTrees$SolarRating) #numeric
+class(camTrees$TreeWellLe) #numeric
+class(camTrees$TreeWellWi) #numeric
+class(camTrees$TreeWellDe) #numeric
+class(camTrees$ScheduledR) #numeric
+class(camTrees$RemovalRea) #character
+class(camTrees$PlantingSe) #character
+class(camTrees$PlantYear) #character
+class(camTrees$RemovalYear) #character
+```
+
+
+```{r}
+
+library(tidyverse)
+
+
+NArates<-camTrees%>%
+  group_by(Species)%>%
+  count()
+
+NAtotes<-camTrees %>%
+  group_by(Scientific) %>%
+  count() %>%
+  summarize(prop = n/sum(n))
+
+save2<-camTrees %>%
+  filter(Longitude > -71.13, Longitude < -71.11, Latitude > 42.359, Latitude < 42.375) %>%
+ggplot(aes(x = Longitude, y = Latitude, color = SolarRating)) +
+  geom_point() +
+  xlim(-71.13, -71.11) +
+  ylim(42.359, 42.375)
+  
+ggsave("explore2.png", save2)
+
+ggplot(camTrees, aes(x=Trunks)) +
+  geom_bar()
+
+hugetrees <- camTrees %>%
+  filter(Trunks == 0)
+
+look<-camTrees %>%
+  drop_na(CommonName, Trunks) %>%
+  filter(Trunks != 0) %>%
+  group_by(CommonName) %>%
+  summarize(avg = mean(Trunks))
+
+camTrees %>%
+  count(Trunks, SiteType)
+```
+
