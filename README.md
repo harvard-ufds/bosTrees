@@ -41,7 +41,9 @@ common trees in Boston, MA:
 ``` r
 library(bosTrees)
 library(tidyverse)
+```
 
+``` r
 # Find the names of the 5 most common species
 top5 <- bosTrees %>%
   count(CommonName) %>%
@@ -67,7 +69,7 @@ ggplot(most_common, aes(x = fct_infreq(CommonName), fill = factor(CommonName))) 
   scale_fill_manual(values = c("#2ca25f", "#31572c", "#90a955", "#66c2a4", "#006d2c"))
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 You can even plot the latitudes and longitudes of the common trees to
 see them in a map view:
@@ -81,7 +83,7 @@ ggplot(most_common, aes(x = Longitude, y = Latitude, color = CommonName)) +
         legend.position = "bottom")
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 You can also use the `camTrees` dataset to take a closer look at the
 trees in Cambridge, MA specifically:
@@ -97,7 +99,7 @@ ggplot(aes(x = Longitude, y = Latitude, color = Ownership)) +
   labs(title = "Ownership of Trees alongside Charles River on Harvard's Campus")
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ## References
 

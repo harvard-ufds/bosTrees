@@ -44,7 +44,9 @@ Trees are fun to visualize! Here is a simple bar graph of the 5 most common tree
 ```{r example, warning=FALSE, message=FALSE}
 library(bosTrees)
 library(tidyverse)
+```
 
+```{r}
 # Find the names of the 5 most common species
 top5 <- bosTrees %>%
   count(CommonName) %>%
