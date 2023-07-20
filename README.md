@@ -39,9 +39,9 @@ This is a basic example which shows you how to solve a common problem:
 
     #> 
     #> The downloaded binary packages are in
-    #>  /var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T//RtmpI6hwC1/downloaded_packages
+    #>  /var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T//RtmpVITNCo/downloaded_packages
     #> ── R CMD build ─────────────────────────────────────────────────────────────────
-    #> * checking for file ‘/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpI6hwC1/remotesf7556af06579/harvard-ufds-bosTrees-8e6b5e5/DESCRIPTION’ ... OK
+    #> * checking for file ‘/private/var/folders/mp/vd1ynsh93v51m1fmz6n99n440000gn/T/RtmpVITNCo/remotesfb28568a6f69/harvard-ufds-bosTrees-117a3aa/DESCRIPTION’ ... OK
     #> * preparing ‘bosTrees’:
     #> * checking DESCRIPTION meta-information ... OK
     #> * checking for LF line-endings in source and make files and shell scripts
