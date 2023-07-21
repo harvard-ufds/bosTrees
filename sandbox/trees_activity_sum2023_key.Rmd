@@ -1,0 +1,130 @@
+---
+title: "Explore Boston Trees"
+author: "Insert Your Name"
+date: "2023-07-24"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In this worksheet we are going to explore data on trees in Boston and Cambridge.
+
+### Objectives
+
+XXX  Exploratory Data Analysis -- Statistical Sleuths!
+
+### The Datasets
+
+The data live in the `R` package: `bosTrees`.
+
+```{r, eval = FALSE}
+# Run this chunk once to install the package
+install.packages("devtools")
+devtools::install_github("harvard-ufds/bosTrees")
+```
+
+There are two datasets in the package:
+
+* `bosTrees`: includes data on 6,836 primary street trees located throughout Boston and was collected by the City of Boston's GIS team.
+* `camTrees`: includes data on 38,050 trees and tree planting sites owned, planted or maintained by the City of Cambridge, the Massachusetts Department of Conservation and Recreation, MIT, Harvard University, and other private organizations.  It is maintained by the Cambridge Public Works.
+
+
+```{r}
+# Load the data
+data(bosTrees)
+data(camTrees)
+```
+
+
+#### Problem 1
+
+Head up to the **Environment** tab and click on the two datasets.  Start to explore what variables are contained in the datasets.  What do you think the variables mean?  Which variables might be interesting to summarize and graph?
+
+```{r, eval = FALSE}
+#  Run this chunk to see the help files, which describe the variables
+?bosTrees
+?camTrees
+```
+
+#### Problem 2
+
+How many trunks does a tree have?  
+
+a. Run the following code and write out what is happening.
+
+```{r}
+count(camTrees, Trunks)
+```
+
+
+******************************************************
+
+
+**Answer**: For each number of trunks, R is counting the number of street trees in Cambridge with that number of trunks.  So, 11,110 trees have 0 trunks, 25,950 have 1 trunk, ...
+
+
+******************************************************
+
+b. Is it really possible to have 15 or 16 trunks??  What is the `CommonName`, `Latitude`, and `Longitude` of the trees that supposedly has at least 15 trunks?
+
+```{r}
+# Code chunk is optional
+# You can also use the View window to identify the tree
+
+```
+
+```{r}
+# Code chunk is optional
+# You can also use the View window to identify the tree
+filter(camTrees, Trunks >= 15) %>%
+  select(CommonName, Latitude, Longitude, Trunks) %>%
+  as.data.frame() # To get more digits
+```
+
+******************************************************
+
+
+**Answer**: They are all Serviceberries. 
+
+
+******************************************************
+
+c.  For the trees identified in (b) use Google Maps to try to find these trees.  Why can we only find one of the three trees?  Hint: Figure out when the Google Maps image was captured.
+
+
+******************************************************
+
+
+**Answer**: Two of them were planted after the Google Maps picture was taken.
+
+
+******************************************************
+
+d.  From your sleuthing, does it seem possible for a tree to have 15 or 16 trunks?
+
+
+******************************************************
+
+
+**Answer**: Yes!
+
+
+******************************************************
+
+
+e. 
+
+
+#### Problem 3
+
+who maintains?
+
+#### Problem 4
+
+what are the trees near the biostats dept?
+
+#### Problem 5
+
+Choose your own adventure

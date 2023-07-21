@@ -14,7 +14,7 @@ Authors@R: c(
            family = "Reimann",
            role = c("aut"),
            email = "treimann@college.harvard.edu"))
-Description: A collection of two datasets containing information on trees and tree planting sites in Boston, MA.
+Description: A collection of two datasets containing information on trees and tree planting sites in Boston, MA and Cambridge, MA.
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
@@ -23,3 +23,4 @@ BugReports: https://github.com/harvard-ufds/bosTrees/issues
 Depends: 
     R (>= 2.10)
 LazyData: true
+License: CC0

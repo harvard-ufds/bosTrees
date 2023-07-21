@@ -110,6 +110,9 @@ most_common2 <- most_common %>%
 ggplot(most_common2, aes(x = fct_infreq(CommonName), fill = Alive)) +
   geom_bar(position = "dodge") +
   theme(legend.pos = "bottom")
+ggplot(most_common2, aes(x = fct_infreq(CommonName), fill = Alive)) +
+  geom_bar(position = "fill") +
+  theme(legend.pos = "bottom")
 
 # Find the names of the 5 most common species around Biostats Department
 top5_biostats <- bosTrees %>%
@@ -127,13 +130,37 @@ common_biostats <- bosTrees %>%
 # The coordinates of the Biostats Dept: (42.33583368443492, -71.10193132895387)
 ggplot(common_biostats, aes(x = Longitude, y = Latitude, color = CommonName)) +
   geom_point(alpha = 0.4) +
-  xlim(-71.09, -71.11) +
+  xlim(-71.11, -71.09) +
   ylim(42.33, 42.34) +
   theme(axis.title.x = element_blank(),
         axis.title.y = element_blank(),
         legend.title = element_blank(),
-        legend.position = "bottom")
+        legend.position = "bottom") +
+  geom_point(y = 42.33583368443492, x = -71.10193132895387,
+             color = "black")
 
 
+ggplot(bosTrees, aes(x = Longitude, y = Latitude)) +
+  geom_point(alpha = 0.4) +
+  xlim(-71.11, -71.09) +
+  ylim(42.33, 42.34) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
+  geom_point(y = 42.33583368443492, x = -71.10193132895387,
+             color = "red")
+
+
+ggplot(bosTrees, aes(x = Longitude, y = Latitude, color = CommonName)) +
+  geom_point(alpha = 0.4) +
+  xlim(-71.1025, -71.100) +
+  ylim(42.333, 42.3365) +
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
+  geom_point(y = 42.33583368443492, x = -71.10193132895387,
+             color = "black")
 ```
 
