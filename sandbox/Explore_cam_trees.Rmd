@@ -61,11 +61,13 @@ NAtotes<-camTrees %>%
   summarize(prop = n/sum(n))
 
 save2<-camTrees %>%
-  filter(Longitude > -71.13, Longitude < -71.1, Latitude > 42.359, Latitude < 42.375) %>%
+  filter(Longitude > -71.13, Longitude < -71.11, Latitude > 42.359, Latitude < 42.375) %>%
 ggplot(aes(x = Longitude, y = Latitude, color = Ownership)) +
   geom_point() +
-  xlim(-71.13, -71.1) +
+  xlim(-71.13, -71.11) +
   ylim(42.359, 42.375)
+
+save2
   
 ggsave("explore2.png", save2)
 
