@@ -8,7 +8,7 @@ bosTrees <- bosTrees |>
   dplyr::select(-X, -Y)
 
 #renaming for consistency in cultivar name
-bosTrees$Species<- dplyr::recode_factor(
+bosTrees$Species <- dplyr::recode_factor(
   bosTrees$Species,
                                         "Malus" = "MALUS",
                                         "RED MAPLE" = "ACER RUBRUM",
@@ -32,28 +32,28 @@ bosTrees$Species<- dplyr::recode_factor(
 )
 
 #separate name into cultivar, species, genus
-bosTrees<-tidyr::separate(bosTrees, Species, c("A", "B"), sep = " '", remove = TRUE)|>
+bosTrees <- tidyr::separate(bosTrees, Species, c("A", "B"), sep = " '", remove = TRUE) |>
   dplyr::rename(Cultivar = B, Else = A)
-bosTrees<-tidyr::separate(bosTrees, Else, c("A", "B"), sep = " ", remove = FALSE, extra = "merge")|>
+bosTrees <- tidyr::separate(bosTrees, Else, c("A", "B"), sep = " ", remove = FALSE, extra = "merge") |>
   dplyr::rename(Genus = A, Species = B)
 
 #remove all caps
-bosTrees$Genus<-stringr::str_to_title(bosTrees$Genus)
-bosTrees$Species<-stringr::str_to_title(bosTrees$Species)
-bosTrees$Cultivar<-stringr::str_to_title(bosTrees$Cultivar)
-bosTrees$Else<-stringr::str_to_sentence(bosTrees$Else)
+bosTrees$Genus <- stringr::str_to_title(bosTrees$Genus)
+bosTrees$Species <- stringr::str_to_title(bosTrees$Species)
+bosTrees$Cultivar <- stringr::str_to_title(bosTrees$Cultivar)
+bosTrees$Else <- stringr::str_to_sentence(bosTrees$Else)
 
 #import Cambridge trees for Common Names
 crossover <- readr::read_csv("https://data.cambridgema.gov/api/views/82zb-7qc9/rows.csv?accessType=DOWNLOAD")
-crossover<- crossover|>
-  dplyr::select(Scientific, CommonName)|>
-  dplyr::count(Scientific, CommonName)|>
-  dplyr::group_by(Scientific)|>
-  dplyr::slice_max(n, n=1)|>
+crossover <- crossover |>
+  dplyr::select(Scientific, CommonName) |>
+  dplyr::count(Scientific, CommonName) |>
+  dplyr::group_by(Scientific) |>
+  dplyr::slice_max(n, n=1) |>
   dplyr::select(Scientific, CommonName)
 
 #rename some to match
-crossover$Scientific<-dplyr::recode_factor(crossover$Scientific,
+crossover$Scientific <- dplyr::recode_factor(crossover$Scientific,
                                            "Ulmus carpiniforlia" = "Ulmus carpinifolia",
                                            "Ulmus sp" = "Ulmus",
                                            "Prunus × yedoensis" = "Prunus x yedoensis",
@@ -64,8 +64,8 @@ crossover$Scientific<-dplyr::recode_factor(crossover$Scientific,
 
 
 #join and find non-matches for names, there are some that don't have any info
-bosTrees<- dplyr::left_join(bosTrees, crossover, by = c("Else" = "Scientific"))
-bosTrees|>dplyr::mutate(CommonName =
+bosTrees <- dplyr::left_join(bosTrees, crossover, by = c("Else" = "Scientific"))
+bosTrees |> dplyr::mutate(CommonName =
                    as.character(dplyr::case_when(
                      Else %in% "Acer truncatum" ~ "Shangtung Maple",
                      Else %in% "Amelanchier laevis" ~ "Allegheny Serviceberry",
@@ -81,22 +81,22 @@ bosTrees|>dplyr::mutate(CommonName =
                    ))
 )
 #clean names, drop Column with species and genus info
-bosTrees$CommonName<-stringr::str_to_title(bosTrees$CommonName)
-bosTrees <- subset(bosTrees, select = -Else)
+bosTrees$CommonName <- stringr::str_to_title(bosTrees$CommonName)
 
 # Filter out unnecessary columns
 bosTrees <- bosTrees |>
   dplyr::select( -Flag, -GlobalID, -CreationDa, -Creator, -EditDate, -Editor, -GlobalID_2, -CreationDate, -Creator_1, -EditDate_1, -Editor_1, -Cultivar, -Species, -Genus) |>
-  dplyr::rename(ScientificName = Else)
+  dplyr::rename(ScientificName = Else) |>
+  dplyr::relocate(CommonName, .before = Address)
 
 # Merge categories of the same kind
 bosTrees <- bosTrees |>
   dplyr::mutate(Leaning =
                   dplyr::case_when(Leaning == 'No' ~ "N",
-                                   TRUE ~ as.character(Leaning)),
+                                   TRUE ~ Leaning),
                 TreeThere =
                   dplyr::case_when(TreeThere == 'Yes' ~ 'Y',
-                                   TRUE ~ as.character(TreeThere)))
+                                   TRUE ~ TreeThere))
 
 # Merge `Notes` and `Info` columns with a semicolon
 bosTrees$Notes <- paste(bosTrees$Info, bosTrees$Notes, sep = "; ")

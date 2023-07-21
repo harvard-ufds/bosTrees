@@ -1,10 +1,20 @@
 Package: bosTrees
 Title: Datasets on Trees in Boston and Cambridge, MA
 Version: 0.0.0.9000
-Authors@R: 
-    person("Kelly", "McConville", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: 
+Authors@R: c(
+    person(given = "Kelly",
+           family = "McConville",
+           role = c("aut", "cre"),
+           email = "kmcconville@g.harvard.edu"),
+    person(given = "Lal",
+           family = "Kablan",
+           role = c("aut"),
+           email = "lalkablan@college.harvard.edu"),
+    person(given = "Thor",
+           family = "Reimann",
+           role = c("aut"),
+           email = "treimann@college.harvard.edu"))
+Description: A collection of two datasets containing information on trees and tree planting sites in Boston, MA.
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
