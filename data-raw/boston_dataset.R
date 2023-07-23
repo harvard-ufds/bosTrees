@@ -108,5 +108,14 @@ bosTrees$Notes <- gsub(";NA", "", bosTrees$Notes)
 # Drop the original "Info" column if needed
 bosTrees$Info <- NULL
 
+# Make Season a factor so that we can order the seasons chronologically
+bosTrees <- bosTrees |>
+  dplyr::mutate(Season = forcats::fct_relevel(Season, "Fall 2015", "Spring 2016",
+                              "Fall 2016", "Spring 2017", "Spring 2018",
+                              "Fall 2018", "Spring 2019",
+                              "Fall 2019", "Fall 2020",
+                              "Spring 2021", "Fall 2021",
+                              "Spring 2022"))
+
 usethis::use_data(bosTrees, overwrite = TRUE)
 
