@@ -1,19 +1,22 @@
 ---
-title: "Explore Boston Trees"
+title: "Explore Boston and Cambridge Trees"
 author: "Insert Your Name"
 date: "2023-07-24"
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# Load packages
+library(tidyverse)
 ```
 
-In this worksheet we are going to explore data on trees in Boston and Cambridge.
+
 
 ### Objectives
 
-XXX  Exploratory Data Analysis -- Statistical Sleuths!
+In this worksheet we are going to explore data on trees in Boston and Cambridge.  Let's be statistical sleuths and practice wrangling and visualizing data!
 
 ### The Datasets
 
@@ -32,6 +35,9 @@ There are two datasets in the package:
 
 
 ```{r}
+# Load the package with the data
+library(bosTrees)
+
 # Load the data
 data(bosTrees)
 data(camTrees)
@@ -50,17 +56,185 @@ Head up to the **Environment** tab and click on the two datasets.  Start to expl
 
 #### Problem 2
 
-trunks?
+How many trunks does a tree have?  
+
+a. Run the following code and explain what is being computed.
+
+```{r}
+count(camTrees, Trunks)
+```
+
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
+b. Is it really possible to have 15 or 16 trunks??  What is the `CommonName`, `Latitude`, and `Longitude` of the trees that supposedly has at least 15 trunks?
+
+```{r}
+# Code chunk is optional
+# You can also use the View window to identify these trees
+
+```
+
+
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
+c.  For the trees identified in (b) use Google Maps to try to find to a photo of these trees.  Why can we only find an image of the three trees?
+
+Hint: Determine when the Google Maps image was captured.
+
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
+d.  From your sleuthing, does it seem possible for a tree to have 15 or 16 trunks?
+
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
+
+e. How many of the trees have no trunks?  Explore some of these trees to decide whether or not they really have 0 trunks.  If they actually do have trunks, then "0" should actually be replaced with what?
+
+
+```{r}
+# Code chunk is optional
+
+```
+
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
 
 
 #### Problem 3
 
-who maintains?
+Let's explore the Cambridge trees geographically!
+
+a. Run the following code and describe what you see in the resulting graph.  Explain the shape of the data and any patterns you observe.
+
+```{r}
+ggplot(data = camTrees, mapping = aes(x = Longitude,
+                                      y = Latitude,
+                                      color = Ownership)) +
+  geom_point(alpha = 0.05) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1)))
+```
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
+
+b. Pick one of the other variables in the `camTrees` dataset.  Reproduce the scatterplot from (a) but now instead of coloring by `Ownership`, color by your new variable.  Describe any interesting trends you observe.
+
+```{r}
+
+```
+
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
 
 #### Problem 4
 
-what are the trees near the biostats dept?
+Let's now focus on the Boston trees and explore when the data were collected and if the data collection has changed at all over time.
+
+
+a. Run the following code and answer the following questions:
+
+- Was it more common to collect data in the fall or spring?
+- Are there any missed fall or spring seasons between 2016 and 2022?  
+
+```{r}
+ggplot(data = bosTrees, 
+       mapping = aes(x = Season)) +
+  geom_bar()
+```
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
+
+b. Recreate the plot above by this time also map `Alive` to the `fill`.  What does this plot tell you about the data?
+
+```{r}
+
+```
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
+c. Let's enhance our plot from (b) in two different ways.  First recreate the plot from (b) but add `position = "dodge"` within the `geom_bar()`.  Then recreate the plot but instead add `position = "fill"`.  How do the plots change?  In what ways do these changes add to the story?
+
+```{r}
+
+
+```
+
+
+******************************************************
+
+
+**Answer**: 
+
+
+******************************************************
+
 
 #### Problem 5
 
-Choose your own adventure
+There is still much left to explore in these datasets but now it is your turn to pick your question(s)!  Here are some potential questions to explore:
+
+* Which tree types are most common in Boston?
+* What trees are closest to the Department of Biostatistics?
+* What is the distribution of the tree diameters in Cambridge?  Are there any unusual values?
+
+Feel free to ask any of us for help as you explore these data further!  
