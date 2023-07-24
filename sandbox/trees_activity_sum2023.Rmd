@@ -186,7 +186,8 @@ a. Run the following code and answer the following questions:
 ```{r}
 ggplot(data = bosTrees, 
        mapping = aes(x = Season)) +
-  geom_bar()
+  geom_bar() + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
 ******************************************************

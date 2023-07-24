@@ -202,7 +202,8 @@ a. Run the following code and answer the following questions:
 ```{r}
 ggplot(data = bosTrees, 
        mapping = aes(x = Season)) +
-  geom_bar()
+  geom_bar() + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
 ******************************************************
@@ -218,7 +219,8 @@ b. Recreate the plot above by this time also map `Alive` to the `fill`.  What do
 ```{r}
 ggplot(data = bosTrees, 
        mapping = aes(x = Season, fill = Alive)) +
-  geom_bar()
+  geom_bar() + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
 ******************************************************
@@ -234,11 +236,13 @@ c. Let's enhance our plot from (b) in two different ways.  First recreate the pl
 ```{r}
 ggplot(data = bosTrees, 
        mapping = aes(x = Season, fill = Alive)) +
-  geom_bar(position = "dodge")
+  geom_bar(position = "dodge") + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 
 ggplot(data = bosTrees, 
        mapping = aes(x = Season, fill = Alive)) +
-  geom_bar(position = "fill")
+  geom_bar(position = "fill") + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 
 
