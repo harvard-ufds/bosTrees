@@ -34,4 +34,11 @@ camTrees$RemovalYear <- stringr::str_sub(camTrees$RemovalDate, start = 7, end = 
 camTrees <- camTrees |>
   dplyr::select(-PlantDate, -RemovalDate, -Species, -Cultivar)
 
+# Seems like they coded NA as zero for quantitative variables
+# Change to zero for select quantitative variables to be NA
+camTrees <- camTrees |>
+  dplyr::mutate(Diameter = dplyr::na_if(Diameter, 0),
+                SolarRating = dplyr::na_if(SolarRating, 0),
+                Trunks = dplyr::na_if(Trunks, 0))
+
 usethis::use_data(camTrees, overwrite = TRUE)
