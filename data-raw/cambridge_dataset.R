@@ -41,4 +41,9 @@ camTrees <- camTrees |>
                 SolarRating = dplyr::na_if(SolarRating, 0),
                 Trunks = dplyr::na_if(Trunks, 0))
 
+# Set Diameter to NA for trees with nonsensical Diameters
+camTrees <- camTrees |>
+  dplyr::mutate(Diameter = dplyr::na_if(Diameter, 999)) |>
+  dplyr::mutate(Diameter = dplyr::na_if(Diameter, 945))
+
 usethis::use_data(camTrees, overwrite = TRUE)
